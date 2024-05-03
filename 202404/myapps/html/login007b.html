@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+
+<body>
+    <h1>Welcome to loginApp</h1>
+    <h4>The World's Most Loved Login App!!</h4>
+    <p>Status:</p>
+    <div id="status"></div>
+    <!--Login Form-->
+    <form id="loginForm" onsubmit="login()">
+        <label for="">Username:</label>
+        <input type="text" id="username">
+        <label for="">Password:</label>
+        <input type="password" id="password">
+
+        <input id="submit" type="submit" value="Log In">
+        <br>
+        <a href="javascript:showHideForm('create')" id="create-account">Create Account</a>
+        <a href="javascript:showHideForm('reset')" id="reset-password">Reset Password</a>
+    </form>
+    <!--Create account form -->
+    <form id="createAccountForm" onsubmit="createAccount()">
+        <h2>Create Account</h2>
+        <label for="">Username:</label>
+        <input type="text" id="create-username" name="username" required>
+        <label for="">Password:</label>
+        <input type="password" id="create-password" name="password" required>
+        <label for="first-name">First Name:</label>
+        <input type="text" id="first-name">
+        <label for="last-name">Last Name:</label>
+        <input type="text" id="last-name">
+        <input type="submit" value="Create Account">
+    </form>
+    <!-- Reset password form -->
+    <form id="resetPasswordForm" onsubmit="resetPassword()">
+        <h2>Reset Passowrd</h2>
+        <label for="">User Name:</label>
+        <input type="text" id="reset">
+        <div id="resetdiv">
+            <label for="">New Password:</label>
+        <input type="password" id="newpassword">
+        </div>
+        <input id="resetbutton" type="submit" value="Enter User Name">
+    </form>
+</body>
+<script src="login007b.js"></script>
+
+</html>

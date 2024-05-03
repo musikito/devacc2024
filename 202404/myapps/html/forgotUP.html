@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .forgot-form {
+      padding: 20px;
+      border: 1px solid #ddd;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="forgot-form">
+    <h2>Please enter the E-Mail you used to register</h2>
+    <form id="forgotForm">
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email" required>
+     
+      <button type="submit">Reset</button>
+    </form>
+    <h3 id="sentMessage"></h3> 
+  
+  
+  </div>
+
+  <script src="forgotUP.js"></script>
+</body>
+</html>

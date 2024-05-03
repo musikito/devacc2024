@@ -1,0 +1,7 @@
+Sources
+medium.com/samsung-internet-dev/making-an-ar-game-with-aframe-529e03ae90cb
+github.com/onumahkalusamuel/Result-Management-System
+stackoverflow.com/questions/30386771/failed-to-login-wait-message-and-redirect-html-css-ajax
+github.com/CREPIC21/MYBLOGDEPLOY
+github.com/JRicardoT/Travel-tracker
+github.com/jeffgrasso42/vintage_todo_list

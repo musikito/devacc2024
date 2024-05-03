@@ -1,0 +1,3 @@
+dept_id, emp_id, dept_name, job_title
+d001, 1001, Management, CEO
+d002, 1002, Accounting, CFO
