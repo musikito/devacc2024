@@ -56,39 +56,17 @@ cars = [
 ];
 
 // Convert the users array to a string
-let localUsersObj = JSON.stringify(users);
-// Convert the cars array to a string
-let localCarsObj = JSON.stringify(cars);
-if(localStorage.getItem("localCars")){
-    console.log("local cars storage exists");
-    let localCarsText =  localStorage.getItem("localCars");
-    cars = JSON.parse(localCarsText);
-
-    cars.forEach((car) => {
-        console.log(car);
-        if(car.availability == false){
-            document.getElementById("rented-cars-table").innerHTML += `<tr><td>${car.make}</td><td>${car.model}</td><td>${car.year}</td><td>${car.rentalRatePerDay}</td><td><button class="btn btn-primary" onclick="rentCar('${car.make}', '${car.model}', '${car.year}', '${car.rentalRatePerDay}')">Rent Car</button></td></tr>`;
-
-            // car.availability = true;
-        }
-    })
-    // console.log(cars);
-}else {
-    // Create the local storage
-    let carsString = JSON.stringify(cars)
-    localStorage.setItem("localCars", carsString)
-} // End else statement
-
+let localUsersObj = JSON.stringify(users)
 
 
 // Check if the user is already logged in
 if (localStorage.getItem("localUsers")) {
     console.log("local storage exists");
-    let localUsersText =  localStorage.getItem("localUsers");
-    users = JSON.parse(localUsersText);
+    let localUsersText =  localStorage.getItem("localUsers")
+    users = JSON.parse(localUsersText)
     
     let loginCheck = 0;
-    // Is the user logged in?
+    
     users.forEach((user) => {
         if (user.currentlyLoggedIn) {
             loginCheck++;
@@ -114,51 +92,39 @@ if (localStorage.getItem("localUsers")) {
 /*
 We first check if the user is logged in. If they are, we check if their username and password match. If they do, we set their currentlyLoggedIn property to true and increment their totalLogins property by 1. If they do not match, we set their currentlyLoggedIn property to false.
 */
-
-    login = () => {
-        event.preventDefault()
-        let loginUserName = document.getElementById("username").value;
-        let loginPassword = document.getElementById("password").value;
-    
-        for (let i = 0; i < users.length; i++) {
-            if (loginUserName == users[i].username && loginPassword == users[i].password) {
-                let loggedInUser = users[i].firstName;
-                users[i].totalLogins++;
-                users[i].currentlyLoggedIn = true;
-                let loggedInCount = users[i].totalLogins;
-    
-                localUsersObj = JSON.stringify(users);
-                localStorage.setItem("localUsers", localUsersObj);
-    
-           // Display MSGS
+login = () =>{
+    // console.log("enter login function");
+    event.preventDefault();
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    let loginCheck = false;
+    users.forEach((user) => {
+        if (user.username == username && user.password == password) {
+            let loggedInUser = user.firstName; // Assign the logged in user to a variable
+            user.currentlyLoggedIn = true;
+            user.totalLogins++;
+            loginCheck = true;
+            let loggedInCount = user.totalLogins;
+            localUsersObj = JSON.stringify(users);
+            localStorage.setItem("localUsers", localUsersObj);
+            // Display MSGS
             document.getElementById("status").innerHTML = `<p style="color: green">Hello ${loggedInUser}, You are Logged In! You have logged in ${loggedInCount} times</p>`;
+            // Change login button to logout
+            document.getElementById("login-logout").innerHTML = `<button id="login-logout" onclick="logout()">Log Out</button>`;
             // Show the car list
             document.getElementById("rent-div").style.display = "block";
-            // Hide the login form
-            document.getElementById("login-div").style.display = "none";
-            // Show the logout button
-            document.getElementById("logout-button").style.display = "block";
-                break;
-    
-            } else { // Display error MSG
-                document.getElementById("status").innerHTML = `<p style="color: red">Username or Password is incorrect. Enter the correct Username or Reset Password Below.</p>`;
-     
-            }
-    
+            // Hide the new account form
+            // document.getElementById("login-div").style.display = "none";
+            
+        } else{
+            user.currentlyLoggedIn = false;
+            loginCheck = false;
+            document.getElementById("status").innerHTML = `<p style="color: red">Invalid Username or Password</p>`;
+            document.getElementById("login-logout").innerHTML = `<button id="login-logout" onclick="logout()">Login</button>`;
+             
         }
-
-    
-        localUsersObj = JSON.stringify(users);
-        localStorage.setItem("localUsers", localUsersObj);
-    
-        document.getElementById("username").value = "";
-        document.getElementById("password").value = "";
-    
-    
-    
-
+    }); // End forEach
 } // End login function
-
 
 logout = () => {
    
@@ -179,12 +145,10 @@ logout = () => {
             // Show the new account form
             document.getElementById("login-div").style.display = "block";
         }); // end ofrEacch loop
-        //Hide the logout button
-        document.getElementById("logout-button").style.display = "none";
-         // Show the login form
-         document.getElementById("login-div").style.display = "block";
-        // login(); // Call login function
 }// End of logout function
+
+
+
 
 
 

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <H1>Welcome to LoginApp</H1>
+    <h4>The World's Most Loved Login App!!!</h4>
+
+    <p>Login Status:</p>
+    <div id="status"></div>   
+    <hr>
+    <hr>
+    
+    <p>Login Below:</p>
+    <form onSubmit="login()">
+        <label for="">Username:</label>
+        <input type="text" id="username">
+        <label for="">Password:</label>
+        <input type="password" id="password">
+
+        <input type="submit" value="submit">
+    </form>
+<br>    
+<hr>
+    <p>Create a new account:</p>
+    <form onSubmit="createAccount()">
+        <label for="">First Name:</label>
+        <input type="text" id="newFirstName">
+        <label for="">Last Name:</label>
+        <input type="text" id="newLastName">
+        <br>
+        <label for="">Username:</label>
+        <input type="text" id="newUsername">
+        <label for="">New Password:</label>
+        <input type="password" id="newPassword">
+        <input type="submit" value="submit">
+    </form>
+    <div id="newAccountStatus"></div>
+
+    <div id="resetAccount"></div>
+
+<br>    
+<hr>
+
+    <p>Use the button below to log out:</p>
+    <div id="logout"></div>
+    <form onSubmit="logout()">
+        <input type="submit" value="logout">
+    </form>
+
+    <div id="resetPassword"></div>
+
+</body>
+<script src="login007b.js"></script>
+</html>
+
+
+

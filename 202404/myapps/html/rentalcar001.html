@@ -6,6 +6,8 @@
     <title>Rental Cars</title>
 </head>
 <body>
+    <p id="status"></p>
+    <button id="logout-button" onclick="logout()" style="display: none;">Logout</button>
     <div id="login-div">
         <h1>Account Login</h1>
         <form id="login-form" onsubmit="login()">
@@ -13,18 +15,15 @@
             <input type="text" id="username" name="username">
             <label for="username">Password:</label>
             <input type="password" id="password" name="password">
-           <input type="submit" value="submit">
-           <p id="status"></p>
+           <input type="submit" value="Login">
         </form>
     </div>
-    <div id="rent-div">
+    <div id="rent-div" style="display: none;">
         <h1>Available Cars</h1>
-        <p>Select cars by Availability/Model/Year/rate</p>
+        <p>Select cars by Availability</p>
     <select id="availability-filter">
-        <option value="all">All Cars</option>
-        <option value="available">Available Cars</option>
-        <option value="unavailable">Unavailable Cars</option>
-        <option value="model">Cars Model</option>
+        <option value="">Select a Car</option>
+        
     </select>
     <br>
     <h2>Rental Details</h2>
@@ -44,7 +43,7 @@
         <table id="rented-cars-table">
             <thead>
                 <tr>
-                    <th>Make</th>
+                    <th id="make">Make</th>
                     <th>Model</th>
                     <th>Year</th>
                     <th>Rental Start Date</th>
