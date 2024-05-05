@@ -9,7 +9,8 @@
     <p id="status"></p>
     <button id="logout-button" onclick="logout()" style="display: none;">Logout</button>
     <div id="login-div">
-        <h1>Account Login</h1>
+        <h1>Rental Car Account Login</h1>
+        <h2>Please Log In to see Available cars for rent</h2>
         <form id="login-form" onsubmit="login()">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username">
@@ -27,7 +28,12 @@
     </select>
     <br>
     <h2>Rental Details</h2>
-    <div id="details">
+    <div id="details"><table id="rental-details-table">
+       <hr>
+       
+    </table>
+    <hr>
+   
         <label>Start Date:</label>
         <input type="date" id="start-date">
         <br>
@@ -38,7 +44,7 @@
         <p id="rental-cost"></p>
     </div>
     </div>
-    <div id="rented-cars">
+    <div id="rented-cars" style="display: none;">
         <h2>Rented Cars</h2>
         <table id="rented-cars-table">
             <thead>

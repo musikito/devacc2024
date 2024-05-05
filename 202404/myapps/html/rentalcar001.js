@@ -30,57 +30,55 @@ cars = [
         model: "Camry",
         year: 2022,
         rentalRatePerDay: 45, // in dollars
-        availability: true
+        availability: true,
+        startDate: "",
+        endDate: "",
     },
     {
         make: "Ford",
         model: "Fusion",
         year: 2021,
         rentalRatePerDay: 40, // in dollars
-        availability: false
+        availability: false,
+        startDate: "",
+        endDate: "",
     },
     {
         make: "Chevrolet",
         model: "Malibu",
         year: 2022,
         rentalRatePerDay: 50, // in dollars
-        availability: true
+        availability: true,
+        startDate: "",
+        endDate: "",
     },
     {
         make: "Honda",
         model: "Accord",
         year: 2023,
         rentalRatePerDay: 47, // in dollars
-        availability: true
+        availability: true,
+        startDate: "",
+        endDate: "",
     }
 ];
 
-// Convert the users array to a string
-let localUsersObj = JSON.stringify(users);
+
 // Convert the cars array to a string
 let localCarsObj = JSON.stringify(cars);
 if(localStorage.getItem("localCars")){
     console.log("local cars storage exists");
     let localCarsText =  localStorage.getItem("localCars");
     cars = JSON.parse(localCarsText);
-
-    cars.forEach((car) => {
-        console.log(car);
-        if(car.availability == false){
-            document.getElementById("rented-cars-table").innerHTML += `<tr><td>${car.make}</td><td>${car.model}</td><td>${car.year}</td><td>${car.rentalRatePerDay}</td><td><button class="btn btn-primary" onclick="rentCar('${car.make}', '${car.model}', '${car.year}', '${car.rentalRatePerDay}')">Rent Car</button></td></tr>`;
-
-            // car.availability = true;
-        }
-    })
-    // console.log(cars);
-}else {
+} else {
     // Create the local storage
     let carsString = JSON.stringify(cars)
     localStorage.setItem("localCars", carsString)
 } // End else statement
 
 
-
+// Convert the users array to a string
+let localUsersObj = JSON.stringify(users);
 // Check if the user is already logged in
 if (localStorage.getItem("localUsers")) {
     console.log("local storage exists");
@@ -186,28 +184,77 @@ logout = () => {
         // login(); // Call login function
 }// End of logout function
 
-
-
-
-
 const availabilityFilterEl = document.getElementById("availability-filter");
+// Display Selected car
+displayCars = (filterValue) => {
+    const tableBody = document.getElementById('rental-details-table');
+    
+    tableBody.innerHTML = ' ';
+
+    const selected = cars.filter(car => car.make === filterValue);
+    selected.forEach(car => {
+        // Head of Table
+            const header = document.createElement('thead');
+            header.innerHTML = `
+          
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Price</th>
+            `;
+            // Details of car
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${car.make}</td>
+                <td>${car.model}</td>
+                <td>${car.year}</td>
+                <td>${car.rentalRatePerDay}</td>
+            `;
+            // Append to table
+            tableBody.appendChild(header);
+            tableBody.appendChild(row);
+           
+        });
+    // selected.forEach(car => {
+    //     // console.log(car.year);
+        
+    //    tableBody.innerHTML += `
+       
+    //    <tr><td>${car.make}</td>
+    //    <td>${car.model}</td>
+    //    </td><td>${car.year}</td>
+    //    </td><td>${car.rentalRatePerDay}</td>
+    //   <hr>
+     
+    //   <label>Start Date:</label>
+    //   <input type="date" id="start-date">
+    //   <br>
+    //   <label>Return Date:</label>
+    //   <input type="date" id="return-date">
+    //   <br>
+    
+
+      
+
+    //    <td><button class="btn btn-primary" onclick="rentCar('${car.make}', '${car.model}', '${car.year}', '${car.rentalRatePerDay}')">Rent Car</button></td></tr>`;
+
+    //     // car.availability = true;
+    // });
+}// End of Display Cars Function
+
+
 displayAvailableCars = () => {   
     // console.log("function called"); 
-    availabilityFilterEl.innerHTML = "";
+    
     const available = cars.filter(car => car.availability === true);
     // Using a ForEach loop to create a new <option> element for each car in the array
     available.forEach(car => {
         // console.log(car);
         const option = document.createElement('option');
-        option.value = car.make + ' ' + car.model;
+        option.value = car.make;
         option.innerText = car.make +' ' + car.model;
         // Add the filter to the list
         availabilityFilterEl.appendChild(option);
-        // option.textContent = car.make +'' + car.model;
-        // const option = document.createElement('option');
-        // option.value = car.availability;
-        // option.innerText = car.availability? 'Available' : 'Unavailable';
-        // availabilityFilterEl.appendChild(option);
     });
 
   
@@ -231,3 +278,8 @@ displayAvailableCars = () => {
 
 // Call the function to populate the Dropdown List
 displayAvailableCars();
+// Detect changes on dropdown list
+availabilityFilterEl.addEventListener('change', (event) => {
+    const filterValue = event.target.value;
+    displayCars(filterValue);
+});
