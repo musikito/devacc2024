@@ -98,7 +98,6 @@ if (localStorage.getItem("localUsers")) {
     
     if (loginCheck == 0) {
         document.getElementById("status").innerHTML = `<p style="color: red">No Users Currently Logged In</p>`
-        // document.getElementById("newAccountStatus").innerHTML = ``
         
     } // End if loginCheck == 0
     
@@ -113,7 +112,7 @@ if (localStorage.getItem("localUsers")) {
 We first check if the user is logged in. If they are, we check if their username and password match. If they do, we set their currentlyLoggedIn property to true and increment their totalLogins property by 1. If they do not match, we set their currentlyLoggedIn property to false.
 */
 
-    login = () => {
+login = () => {
         event.preventDefault()
         let loginUserName = document.getElementById("username").value;
         let loginPassword = document.getElementById("password").value;
@@ -151,9 +150,7 @@ We first check if the user is logged in. If they are, we check if their username
     
         document.getElementById("username").value = "";
         document.getElementById("password").value = "";
-    
-    
-    
+
 
 } // End login function
 
@@ -188,7 +185,7 @@ const availabilityFilterEl = document.getElementById("availability-filter");
 // Display Selected car
 displayCars = (filterValue) => {
     const tableBody = document.getElementById('rental-details-table');
-    
+    // Clean the table when droplist change
     tableBody.innerHTML = ' ';
 
     const selected = cars.filter(car => car.make === filterValue);
@@ -215,33 +212,62 @@ displayCars = (filterValue) => {
             tableBody.appendChild(row);
            
         });
-    // selected.forEach(car => {
-    //     // console.log(car.year);
-        
-    //    tableBody.innerHTML += `
-       
-    //    <tr><td>${car.make}</td>
-    //    <td>${car.model}</td>
-    //    </td><td>${car.year}</td>
-    //    </td><td>${car.rentalRatePerDay}</td>
-    //   <hr>
-     
-    //   <label>Start Date:</label>
-    //   <input type="date" id="start-date">
-    //   <br>
-    //   <label>Return Date:</label>
-    //   <input type="date" id="return-date">
-    //   <br>
-    
 
-      
-
-    //    <td><button class="btn btn-primary" onclick="rentCar('${car.make}', '${car.model}', '${car.year}', '${car.rentalRatePerDay}')">Rent Car</button></td></tr>`;
-
-    //     // car.availability = true;
-    // });
 }// End of Display Cars Function
+// array that holds the info for the car rented
+rentedCars = [];
+calculateRentalCost = () =>{
+    // console.log("calculateRentalCost function called");
+    const selectedCar = document.getElementById("availability-filter").value;
+    const startDate = new Date(document.getElementById("start-date").value);
+    const returnDate = new Date(document.getElementById("return-date").value);
 
+    // Check if the dates are valid
+    if( startDate > returnDate){
+        alert("Return Date can;t be before Start Date");
+        // Have a return, so the program wo'nt continue
+        return;
+     } 
+    // Create a new car object with the droplist values
+    const selectedCarsObj = cars.find(car => car.make === selectedCar);
+    // Calculate the days and final price
+    const numOfDays = Math.floor((returnDate - startDate) / (1000 * 60 * 60 * 24));
+    const rentalCost = numOfDays * selectedCarsObj.rentalRatePerDay;
+    // console.log(rentalCost);
+    const rentalCostP = document.getElementById("rental-cost");
+    rentalCostP.innerText = `Rental Cost: $${rentalCost}`;
+    // Add the rented car to the rented cars array
+    const carRented = {
+        make: selectedCarsObj.make,
+        model: selectedCarsObj.model,
+        year: selectedCarsObj.year,
+        rentalRatePerDay: selectedCarsObj.rentalRatePerDay,
+        numOfDays: numOfDays,
+        rentalCost: rentalCost,
+    };
+    // console.log(carRented);
+    // Push the new OBJ to the array
+    rentedCars.push(carRented);
+    // Make rent button visible
+    document.getElementById("rent-car-btn").style.display = "block";
+
+} // End of aalculateRentalCost function
+
+rentCar = () => {
+    // console.log(localCarsObj);
+    const selectedCar = document.getElementById("availability-filter").value;
+     // Create a new car object with the droplist values
+     const selectedCarsObj = cars.find(car => car.make === selectedCar);
+     // Update car availability to false
+     selectedCarsObj.availability = false;
+     // Update the dropdown list
+     displayAvailableCars();
+     // Print the rented car info
+    
+    //  console.log(rentedCars);
+    alert("Car Rented Successfully");
+
+} // end of rentCar function
 
 displayAvailableCars = () => {   
     // console.log("function called"); 
@@ -257,23 +283,7 @@ displayAvailableCars = () => {
         availabilityFilterEl.appendChild(option);
     });
 
-  
 
-    // const filterValue = availabilityFilterEl.value;
-    // const filteredCars = cars.filter(car => car.availability === (filterValue === 'available'));
-    // const tableBody = document.getElementById('cars-table-body');
-    // tableBody.innerHTML = '';
-    // filteredCars.forEach(car => {
-    //     const row = document.createElement('tr');
-    //     row.innerHTML = `
-    //         <td>${car.make}</td>
-    //         <td>${car.model}</td>
-    //         <td>${car.year}</td>
-    //         <td>${car.rentalRatePerDay}</td>
-    //         <td>${car.availability}</td>
-    //     `;
-    //     tableBody.appendChild(row);
-    // });
 } // End of function filterCars()
 
 // Call the function to populate the Dropdown List

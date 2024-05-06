@@ -40,7 +40,8 @@
         <label>Return Date:</label>
         <input type="date" id="return-date">
         <br>
-        <button id="total-cost">Calculate Cost:</button>
+        <button id="total-cost" onclick="calculateRentalCost()">Calculate Cost:</button>
+        <button id="rent-car-btn" onclick="rentCar()" style="display: none;">Rent this car:</button>
         <p id="rental-cost"></p>
     </div>
     </div>
@@ -49,7 +50,7 @@
         <table id="rented-cars-table">
             <thead>
                 <tr>
-                    <th id="make">Make</th>
+                    <th >Make</th>
                     <th>Model</th>
                     <th>Year</th>
                     <th>Rental Start Date</th>
