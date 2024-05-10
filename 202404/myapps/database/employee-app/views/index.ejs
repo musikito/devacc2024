@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee List</title>
+</head>
+<body>
+  <h1>Employee List</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Phone</th>
+        <th>Salary</th>
+        <th>Department</th>
+        <th>Hire Date</th>
+        <th>End Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% employees.forEach(function(employee) { %>
+      <tr>
+        <td><%= employee.id %></td>
+        <td><%= employee.firstname %></td>
+        <td><%= employee.lastname %></td>
+        <td><%= employee.phone %></td>
+        <td><%= employee.salary %></td>
+        <td><%= employee.department %></td>
+        <td><%= employee.hiredate %></td>
+        <td><%= employee.enddate %></td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>
