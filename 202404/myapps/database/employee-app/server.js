@@ -9,8 +9,8 @@ const port = 3000;
 // Database connection details (replace with your actual credentials)
 const pool = mysql.createPool({
   host: 'localhost',
-  user: 'root',
-  password: 'Papiton#1',
+  user: 'yourusername',
+  password: 'yourpassword',
   database: 'humanresources',
 });
 
