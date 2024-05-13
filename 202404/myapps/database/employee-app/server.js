@@ -1,5 +1,5 @@
 const express = require('express');
-const mysql = require('mysql2/promise');
+const mysql = require('mysql2/promise'); // For MySQL
 const ejs = require('ejs');
 const path = require('path');
 
@@ -9,8 +9,8 @@ const port = 3000;
 // Database connection details (replace with your actual credentials)
 const pool = mysql.createPool({
   host: 'localhost',
-  user: 'yourusername',
-  password: 'yourpassword',
+  user: 'root',
+  password: 'Papiton#1',
   database: 'humanresources',
 });
 

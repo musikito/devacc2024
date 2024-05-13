@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+    
+</head>
+<body>
+    <h1>Employee Management System</h1>
+    <form action="/add" method="POST">
+        <input type="text" name="firstname" placeholder="First Name" required>
+        <input type="text" name="lastname" placeholder="Last Name" required>
+        <input type="text" name="phone" placeholder="Phone">
+        <input type="number" name="salary" placeholder="Salary" required>
+        <input type="text" name="department" placeholder="Department" required>
+        <input type="date" name="hiredate" placeholder="Hire Date" required>
+        <button type="submit">Add Employee</button>
+    </form>
+    <ul>
+        <% employees.forEach(employee => { %>
+            <li>
+                <span><%= employee.firstname %> <%= employee.lastname %></span>
+                <span><%= employee.phone %></span>
+                <span>$<%= employee.salary %></span>
+                <span><%= employee.department %></span>
+                <span><%= employee.hiredate %></span>
+                <form action="/delete/<%= employee.id %>" method="GET">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+</body>
+</html>
