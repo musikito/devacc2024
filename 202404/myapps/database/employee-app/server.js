@@ -89,15 +89,60 @@ app.get('/logout', (req, res) => {
 });
 
 // Display all employees
-app.get('/', (req, res) => {
+app.get('/', isAuthenticated, (req, res) => {
     connection.query('SELECT * FROM employees', (err, rows) => {
         if (err) throw err;
         res.render('index', { employees: rows });
     });
 }); 
-  
 
+// Render the add employee form
+app.get('/add-employee', isAuthenticated, (req, res) => {
+  res.render('add-employee');
+});
 
+// Handle form submission to add a new employee
+app.post('/add-employee', isAuthenticated, (req, res) => {
+  const { firstname, lastname, phone, salary, department, hiredate } = req.body;
+  const employee = { firstname, lastname, phone, salary, department, hiredate };
+  connection.query('INSERT INTO employees SET ?', employee, (err, result) => {
+      if (err) throw err;
+      res.redirect('/');
+  });
+});
+
+// Delete an employee
+app.get('/delete/:id', isAuthenticated, (req, res) => {
+  const { id } = req.params;
+  connection.query('DELETE FROM employees WHERE id = ?', id, (err, result) => {
+      if (err) throw err;
+      res.redirect('/');
+  });
+});
+
+// Render the edit employee form
+app.get('/edit-employee/:id', isAuthenticated, (req, res) => {
+  const { id } = req.params;
+  connection.query('SELECT * FROM employees WHERE id = ?', [id], (err, results) => {
+      if (err) throw err;
+      if (results.length > 0) {
+          res.render('edit-employee', { employee: results[0] });
+      } else {
+          res.redirect('/');
+      }
+  });
+});
+
+// Handle form submission to update an employee
+app.post('/edit-employee/:id', isAuthenticated, (req, res) => {
+  const { id } = req.params;
+  const { firstname, lastname, phone, salary, department, hiredate, enddate } = req.body;
+  const employee = { firstname, lastname, phone, salary, department, hiredate, enddate };
+  connection.query('UPDATE employees SET ? WHERE id = ?', [employee, id], (err, result) => {
+      if (err) throw err;
+      res.redirect('/');
+  });
+});
   // run the server
   app.listen(3000, () => {
     console.log(`Server is running`);

@@ -6,7 +6,9 @@
   <title>Employee List</title>
 </head>
 <body>
-  <h1>Employee List</h1>
+  <h1>Employee Management System</h1>
+  <a href="/add-employee">Add New Employee</a>
+  <a href="/logout">Logout</a>
   <table>
     <thead>
       <tr>
@@ -34,6 +36,7 @@
         <td><%= employee.department %></td>
         <td><%= employee.hiredate %></td>
         <td><%= employee.enddate %></td>
+        <a href="/edit-employee/<%= employee.id %>">Edit Employee</a>
         <form action="/delete/<%=employee.id %>" method="get">
           <button type="submit">Delete Employee</button>
 
