@@ -2,10 +2,18 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
+const bcrypt = require('bcrypt');
+const session = require('express-session');
 const path = require('path');
 const app = express();
 
 app.set('view engine', 'ejs');
+// Create the session for the login
+app.use(session({
+  secret: 'your_secret_key',
+  resave: false,
+  saveUninitialized: true
+}));
 
 // Create a connection to the database
 const connection = mysql.createConnection({
@@ -25,10 +33,60 @@ const connection = mysql.createConnection({
     console.log('Connected to the database.');
   });
 
+  // Middleware to check if user is authenticated
+function isAuthenticated(req, res, next) {
+  if (req.session.user) {
+      next();
+  } else {
+      res.redirect('/login');
+  }
+}
+ 
   // Middleware to parse request
   app.use(bodyParser.urlencoded({ extended: true }));
   // Serve static files
   app.use(express.static(path.join(__dirname, 'public')));
+
+  // Login page
+app.get('/login', (req, res) => {
+  res.render('login');
+});
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  
+
+  connection.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
+      if (err) throw err;
+      if (results.length > 0) {
+        
+          const user = results[0];
+          // res.send(user);
+          if (user.username === username)  {
+            req.session.user = user;
+            res.redirect('/');
+          }
+          // bcrypt.compare(password, user.password, (err, match) => {
+          //     if (match) {
+               
+          //         req.session.user = user;
+          //         res.redirect('/');
+          //     } else {
+          //         res.send('Incorrect username or password1 ' + err);
+          //     }
+          // });
+      } else {
+          res.send('Incorrect username or password');
+      }
+  });
+});
+
+// Logout
+app.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+      if (err) throw err;
+      res.redirect('/login');
+  });
+});
 
 // Display all employees
 app.get('/', (req, res) => {

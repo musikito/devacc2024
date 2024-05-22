@@ -20,20 +20,27 @@
         <th>End Date</th>
       </tr> 
     </thead>
+    
+  </table>
+
     <tbody>
-      <% employees.forEach(function(employees) { %>
+      <% employees.forEach(function(employee) { %>
       <tr>
-        <td><%= employees.id %></td>
-        <td><%= employees.firstname %></td>
-        <td><%= employees.lastname %></td>
-        <td><%= employees.phone %></td>
-        <td><%= employees.salary %></td>
-        <td><%= employees.department %></td>
-        <td><%= employees.hiredate %></td>
-        <td><%= employees.enddate %></td>
+        <td><%= employee.id %></td>
+        <td><%= employee.firstname %></td>
+        <td><%= employee.lastname %></td>
+        <td><%= employee.phone %></td>
+        <td><%= employee.salary %></td>
+        <td><%= employee.department %></td>
+        <td><%= employee.hiredate %></td>
+        <td><%= employee.enddate %></td>
+        <form action="/delete/<%=employee.id %>" method="get">
+          <button type="submit">Delete Employee</button>
+
+        </form>
       </tr>
       <% }); %>
     </tbody>
-  </table>
+  
 </body>
 </html>
