@@ -10,7 +10,7 @@ const app = express();
 app.set('view engine', 'ejs');
 // Create the session for the login
 app.use(session({
-  secret: 'your_secret_key',
+  secret: 'kjfvaf$$##$GSDFGagaer3456',
   resave: false,
   saveUninitialized: true
 }));
@@ -47,7 +47,7 @@ function isAuthenticated(req, res, next) {
   // Serve static files
   app.use(express.static(path.join(__dirname, 'public')));
 
-  // Login page
+  // Login page route
 app.get('/login', (req, res) => {
   res.render('login');
 });
@@ -88,7 +88,7 @@ app.get('/logout', (req, res) => {
   });
 });
 
-// Display all employees
+// Display all employees (only for authenticated users)
 app.get('/', isAuthenticated, (req, res) => {
     connection.query('SELECT * FROM employees', (err, rows) => {
         if (err) throw err;

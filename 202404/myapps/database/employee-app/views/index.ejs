@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Employee List</title>
+  <link rel="stylesheet" type="text/css" href="/styles.css">
 </head>
 <body>
   <h1>Employee Management System</h1>
-  <a href="/add-employee">Add New Employee</a>
-  <a href="/logout">Logout</a>
   <table>
+    <a href="/add-employee">Add New Employee</a>
+    <a href="/logout">Logout</a>
     <thead>
       <tr>
         <th>ID</th>
@@ -36,10 +37,12 @@
         <td><%= employee.department %></td>
         <td><%= employee.hiredate %></td>
         <td><%= employee.enddate %></td>
-        <a href="/edit-employee/<%= employee.id %>">Edit Employee</a>
+        <form action="/edit-employee/<%= employee.id %>" method="get">
+          <button type="submit">Edit Employee</button>
+        </form>
+        
         <form action="/delete/<%=employee.id %>" method="get">
           <button type="submit">Delete Employee</button>
-
         </form>
       </tr>
       <% }); %>
